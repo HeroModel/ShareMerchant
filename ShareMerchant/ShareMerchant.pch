@@ -1,0 +1,123 @@
+//
+//  ShareMerchant.pch
+//  ShareMerchant
+//
+//  Created by apple on 2017/9/8.
+//  Copyright © 2017年 Apple. All rights reserved.
+//
+
+#ifndef ShareMerchant_pch
+#define ShareMerchant_pch
+
+
+/** 三方工具类 */
+
+#import <AFNetworking.h>
+#import <MBProgressHUD.h>
+#import <WMPageController.h>
+#define MAS_SHORTHAND
+#define MAS_SHORTHAND_GLOBALS
+#import <Masonry.h>
+#import <UIImageView+WebCache.h>
+#import <CoreImage/CoreImage.h>//二维码框架
+#import <AVFoundation/AVFoundation.h>//获取相机权限
+#import <Photos/PHPhotoLibrary.h>//获取相册权限
+/** 自定义工具类 */
+#import "NetTools.h"
+#import "ShareTool.h"//判断手机号
+#import "UILabel+String.h"
+#import "UIBarButtonItem+YWExtension.h"
+#import "UIButton+ButtonTool.h"
+#import "UIView+Line.h"
+#import "UITextField+TextString.h"
+#import "UITextView+TextViewString.h"
+#import "MBProgressShow.h"
+#import "PassWordView.h"
+
+/** 版本号 */
+#define IOS10_LATER ([[[UIDevice currentDevice] systemVersion] compare:@"10.0"] != NSOrderedAscending )
+#define IOS8_LATER ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending )
+
+#define Notification [NSNotificationCenter defaultCenter]
+#define UserDefaults [NSUserDefaults standardUserDefaults]
+
+#define WS  __unsafe_unretained __typeof(self) weakSelf = self;
+
+#define isValidString(string)               (string && [string isEqualToString:@""] == NO)
+
+
+
+
+
+#ifdef DEBUG
+#define NSLog(...) NSLog(__VA_ARGS__)
+#else
+
+#define PHONE_TESTING [UserDefaults objectForKey:@"phoneNumber"]
+#define TOKEN_TESTING [UserDefaults objectForKey:@"token"]
+#define NSLog(...)
+#endif
+
+/** 适配 */
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+
+/** 基于6s 计算屏幕宽高比 **/
+#define WIDTHFIT ([UIScreen mainScreen].bounds.size.width / 375.0f)
+#define HEIGHTFIT ([UIScreen mainScreen].bounds.size.height / 667.0f)
+
+/** 苹方常规字体，40px （黑 粗体)*/
+#define REG_TITLE_FONT [UIFont fontWithName:@"PingFangSC-Semibold" size:20 * WIDTHFIT]
+/** 苹方常规字体，40px （黑） */
+#define NAM_TITLE_FONT_M [UIFont fontWithName:@"PingFangSC-Regular" size:20 * WIDTHFIT]
+/** 苹方常规字体，24px （黑） */
+#define NAME_TIT_FONT [UIFont fontWithName:@"PingFangSC-Regular" size:12 * WIDTHFIT]
+/** 苹方常规字体，26px （黑） */
+#define TIT_FONT [UIFont fontWithName:@"PingFangSC-Regular" size:13 * WIDTHFIT]
+/** 苹方常规字体，30px （黑） */
+#define NAM_TITLE_FONT [UIFont fontWithName:@"PingFangSC-Regular" size:15 * WIDTHFIT]
+/** 苹方常规字体，30px （黑,常规） */
+#define NAV_TITLE_FONT_S [UIFont fontWithName:@"PingFangSC-Regular" size:17 * WIDTHFIT]
+/** 苹方常规字体，28px （黑） */
+#define NAM_TITLE [UIFont fontWithName:@"PingFangSC-Regular" size:14 * WIDTHFIT]
+/** 苹方常规字体，32px （黑） */
+#define NAM_TITLE_B [UIFont fontWithName:@"PingFangSC-Regular" size:16 * WIDTHFIT]
+/** 苹方常规字体，36px （黑,常规） */
+#define NAV_TITLE_N [UIFont fontWithName:@"PingFangSC-Regular" size:18 * WIDTHFIT]
+/** 苹方常规字体，44px （黑，粗） */
+#define NUMBER_TITLE_FONT [UIFont fontWithName:@"PingFangSC-Semibold" size:22 * WIDTHFIT]
+/** 苹方常规字体，80px （黑） */
+#define NUMBER_TITLE_T [UIFont fontWithName:@"PingFangSC-Regular" size:40 * WIDTHFIT]
+/** 苹方常规字体，22px （黑） */
+#define TIMER_TITLE_FONT [UIFont fontWithName:@"PingFangSC-Regular" size:11 * WIDTHFIT]
+/** 苹方常规字体，60px （黑） */
+#define TIMER_TITLE_SIX [UIFont fontWithName:@"PingFangSC-Regular" size:30 * WIDTHFIT]
+/** 苹方常规字体，48px （黑，粗） */
+#define NUMBER_TITLE [UIFont fontWithName:@"PingFangSC-Semibold" size:24 * WIDTHFIT]
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+#define GLOBAL_COLOR  0xd8d8d8  //全局分割栏颜色（灰色）//
+#define GLOBAL_TITLE_COLOR  0x111111  //全局标题颜色（黑色）//
+#define GLOBAL_NUMBER_COLOR 0xf0f0f0   //全局数字字体颜色 (灰色↓)//
+#define GLOBAL_BACKGROUNDCOLOR_COLOR 0xffffff  //全局底色（白色）//
+#define GLOBAL_NAV_COLOR 0xf86151  //全局导航栏颜色（红色）//
+#define GLOBAL_SIGN_COLOR 0x999999  //签名字体颜色(灰色)//
+#define GLOBAL_PAGE_COLOR 0x666666  //我的主页字体颜色（我的）//
+#define GLOBAL_CITY_COLOR 0xbfbfbf  //城市字体颜色//
+#define GLOBAL_CONTEXT_COLOR 0x333333  //动态内容字体颜色//
+#define GLOBAL_NAME_COLOR 0x4a4d4f  //选择机型（黑色）//
+#define SIGN_COLOR 0xfc5555 //资料签名颜色//
+#define TITLE_COLOR 0xf29f7b //浅红色//
+#define RED_COLOR 0xfc5353 //红色//
+#define GR_COLOR 0xf8b551//按钮黄色//
+#define BLACK_COLOR 0x20c7b9//登录按钮浅蓝色
+
+#define BaseURL @"http://123.207.70.168:8080/project-1.0"
+
+/** 身份信息 */
+#define SHENFEN [BaseURL stringByAppendingString:@"/user/uploadPersonalInfo"]
+
+
+#endif /* ShareMerchant_pch */
