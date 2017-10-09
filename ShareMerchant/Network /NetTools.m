@@ -214,6 +214,12 @@
 {
     //创建网络管理者:AFHTTPResponseSerializer
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    // 允许https
+    manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+    manager.securityPolicy.allowInvalidCertificates = YES;
+    [manager.securityPolicy setValidatesDomainName:NO];
+    
     //设置网络请求超时
     [manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
     manager.requestSerializer.timeoutInterval = 10.0f;
@@ -309,6 +315,12 @@
 
 + (void)sendPOSTWithUrl:(NSString *)url WithImageData:(NSData *)data WithName:(NSString *)string parameters:(NSDictionary *)dict success:(blockOfSuccess)successBlock fail:(blockOfFailuure)failBlock progress:(blockOfProgress)progressBlock{
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];//初始化请求对象
+    
+    // 允许https
+    manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+    manager.securityPolicy.allowInvalidCertificates = YES;
+    [manager.securityPolicy setValidatesDomainName:NO];
+    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];//设置服务器允许的请求格式内容
 //     manager.responseSerializer.acceptableContentTypes =  [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html;charset=utf-8", nil];
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];

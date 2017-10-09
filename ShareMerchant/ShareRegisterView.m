@@ -9,8 +9,7 @@
 #import "ShareRegisterView.h"
 
 @interface ShareRegisterView ()<UITextFieldDelegate, UITextViewDelegate>
-/** <#注释#> */
-@property(nonatomic, strong) UITextField * nameTextField;
+
 /** <#注释#> */
 @property(nonatomic, strong) UITextField * passTextField;
 /** <#注释#> */
@@ -203,8 +202,8 @@
         }];
         
         self.lableValue = [UILabel StringWithFont:NAM_TITLE_B WithTextColor:UIColorFromRGB(GLOBAL_PAGE_COLOR)];
-        _lableValue.text = @"32%";
-        _lableValue.textAlignment = NSTextAlignmentRight;
+        _lableValue.text = @"0%";
+        _lableValue.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_lableValue];
         [_lableValue makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(label6);
@@ -215,7 +214,7 @@
         self.slider = [[UISlider alloc] init];
         _slider.minimumValue = 0;
         _slider.maximumValue = 1 * 100;
-        _slider.value = 32;
+        _slider.value = [_lableValue.text integerValue];
         _slider.continuous = YES;
         _slider.minimumTrackTintColor = UIColorFromRGB(GR_COLOR);
         _slider.maximumTrackTintColor = UIColorFromRGB(GLOBAL_COLOR);
@@ -234,11 +233,15 @@
     }
     return self;
 }
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    
+}
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     [self.label removeFromSuperview];
-
 }
+
 - (void)upDateValue:(UISlider *)slider
 {
     int f = slider.value;

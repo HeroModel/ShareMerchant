@@ -21,7 +21,8 @@ YYCodeViewDelegate,
 UICollectionViewDelegate,
 UICollectionViewDataSource,
 UIImagePickerControllerDelegate,
-UINavigationControllerDelegate
+UINavigationControllerDelegate,
+UIScrollViewDelegate
 >
 /** <#注释#> */
 @property(nonatomic, strong) UICollectionView * collectionView;
@@ -60,6 +61,7 @@ static NSString * const PassDPhotoCell = @"PassPhotoDCollectionViewCell";
     _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, 700 * HEIGHTFIT);
     _scrollView.backgroundColor = UIColorFromRGB(GLOBAL_NUMBER_COLOR);
     _scrollView.indicatorStyle = UIScrollViewIndicatorStyleDefault;
+    _scrollView.delegate = self;
     _scrollView.showsVerticalScrollIndicator = NO;
     _scrollView.showsHorizontalScrollIndicator = NO;
 #ifdef __IPHONE_11_0
@@ -213,6 +215,8 @@ static NSString * const PassDPhotoCell = @"PassPhotoDCollectionViewCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     itemCount = indexPath.item;
+    [passWordView.textField resignFirstResponder];
+    [codeView.textField resignFirstResponder];
     UIImagePickerController * imagePickerController = [[UIImagePickerController alloc] init];
     UIAlertController * alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *alertAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
@@ -348,6 +352,12 @@ static NSString * const PassDPhotoCell = @"PassPhotoDCollectionViewCell";
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self.scrollView endEditing:YES];
+}
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [passWordView.textField resignFirstResponder];
+    [codeView.textField resignFirstResponder];
+
 }
 - (void)didUpDateButoon:(UIButton *)sender
 {

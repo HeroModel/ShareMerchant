@@ -14,7 +14,9 @@
 @end
 
 @implementation RegisterAgentViewController
-
+{
+    ShareRegisterView * shareView;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = UIColorFromRGB(GLOBAL_NUMBER_COLOR);
@@ -22,6 +24,7 @@
     UIBarButtonItem * leftButton = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"nav-icon-Return"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(didLeftBarButton:)];
     self.navigationItem.leftBarButtonItem = leftButton;
     [self createView];
+    [shareView.nameTextField becomeFirstResponder];
 }
 - (void)createView
 {
@@ -33,18 +36,18 @@
     layer.cornerRadius = 10.0f;
     [self.view.layer addSublayer:layer];
     
-    ShareRegisterView * back = [[ShareRegisterView alloc] initWithFrame:CGRectMake(20 * WIDTHFIT, 40 * HEIGHTFIT, 335 * WIDTHFIT, 335 * HEIGHTFIT)];
-    back.backgroundColor = [UIColor whiteColor];
-    back.layer.masksToBounds = YES;
-    back.layer.cornerRadius = 10;
-    [self.view addSubview:back];
+    shareView = [[ShareRegisterView alloc] initWithFrame:CGRectMake(20 * WIDTHFIT, 40 * HEIGHTFIT, 335 * WIDTHFIT, 335 * HEIGHTFIT)];
+    shareView.backgroundColor = [UIColor whiteColor];
+    shareView.layer.masksToBounds = YES;
+    shareView.layer.cornerRadius = 10;
+    [self.view addSubview:shareView];
     
     UIButton * button = [UIButton TextStringStlyWithType:UIButtonTypeCustom WithString:@"注 册" WithBackgroundColor:UIColorFromRGB(BLACK_COLOR) WithTextColor:UIColorFromRGB(GLOBAL_BACKGROUNDCOLOR_COLOR) WithFont:NAM_TITLE_B target:self action:@selector(didRegisterButton:)];
     button.layer.masksToBounds = YES;
     button.layer.cornerRadius = 22;
     [self.view addSubview:button];
     [button makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(back.bottom).offset(50 * HEIGHTFIT);
+        make.top.equalTo(shareView.bottom).offset(50 * HEIGHTFIT);
         make.left.equalTo(35 * WIDTHFIT);
         make.right.equalTo(-35 * WIDTHFIT);
         make.height.equalTo(44 * HEIGHTFIT);

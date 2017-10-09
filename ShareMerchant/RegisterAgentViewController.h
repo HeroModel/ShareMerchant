@@ -8,6 +8,7 @@
 
 #import "ShareMerchartBaseViewController.h"
 
+
 @interface RegisterAgentViewController : ShareMerchartBaseViewController
 
 @end
